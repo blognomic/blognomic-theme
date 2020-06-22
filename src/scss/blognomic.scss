@@ -99,7 +99,7 @@ $tablet-min: 768px;
   .term-category-votable-matter {
     .status-icon > .elementor-widget-container {
       background-size: 22px;
-      background-position: left top;
+      background-position: left 2px;
       background-repeat: no-repeat;
       padding-left: calc(1em + 15px);
       margin-left: calc(-1em - 15px);
@@ -159,7 +159,7 @@ $tablet-min: 768px;
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: stretch;
   flex-wrap: wrap;
   margin-left: -$item-margin;
@@ -168,6 +168,7 @@ $tablet-min: 768px;
   li {
     margin: $item-margin;
     text-align: center;
+    width: 80px;
   }
 
   li.admin {
