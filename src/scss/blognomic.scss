@@ -99,14 +99,9 @@ $tablet-min: 768px;
   .term-category-votable-matter {
     .status-icon > .elementor-widget-container {
       background-size: 22px;
-      background-position: left 2px;
+      background-position: left;
       background-repeat: no-repeat;
-      padding-left: calc(1em + 15px);
-      margin-left: calc(-1em - 15px);
-
-      @media (max-width: $mobile-max) {
-        margin-left: 0;
-      }
+      padding-left: 32px;
     }
 
     &.status-open .status-icon > .elementor-widget-container {
@@ -159,7 +154,7 @@ $tablet-min: 768px;
   list-style: none;
   padding: 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: stretch;
   flex-wrap: wrap;
   margin-left: -$item-margin;
@@ -199,6 +194,7 @@ $tablet-min: 768px;
   figcaption {
     font-style: normal;
     font-size: 0.875rem;
+    line-height: 1;
   }
 }
 
