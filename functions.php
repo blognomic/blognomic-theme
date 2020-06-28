@@ -51,3 +51,61 @@ function blognomic_theme_sidebar_pending_query_alter($query) {
 }
 
 add_action('elementor/query/sidebar-pending', 'blognomic_theme_sidebar_pending_query_alter');
+
+// Filter the human_time_diff function so that it's a little more useful for BlogNomic.
+// Moves hours -> days boundary to 48 hours rather than 24, as 48 is usually more relevant to us.
+function blognomic_theme_less_misleading_human_time_diff($since, $diff, $from, $to) {
+  if(empty($to)) {
+    $to = time();
+  }
+  
+  $diff = (int) abs( $to - $from );
+  
+  if ( $diff < MINUTE_IN_SECONDS ) {
+    $secs = $diff;
+    if ( $secs <= 1 ) {
+        $secs = 1;
+    }
+    $since = sprintf( _n( '%s second', '%s seconds', $secs ), $secs );
+  } elseif ( $diff < HOUR_IN_SECONDS && $diff >= MINUTE_IN_SECONDS ) {
+    $mins = floor( $diff / MINUTE_IN_SECONDS );
+    if ( $mins <= 1 ) {
+        $mins = 1;
+    }
+    $since = sprintf( _n( '%s min', '%s mins', $mins ), $mins );
+  } elseif ( $diff < DAY_IN_SECONDS * 2 && $diff >= HOUR_IN_SECONDS ) {
+    $hours = floor( $diff / HOUR_IN_SECONDS );
+    if ( $hours <= 1 ) {
+        $hours = 1;
+    }
+    $since = sprintf( _n( '%s hour', '%s hours', $hours ), $hours );
+  } elseif ( $diff < WEEK_IN_SECONDS && $diff >= DAY_IN_SECONDS * 2 ) {
+    $days = floor( $diff / DAY_IN_SECONDS );
+    if ( $days <= 1 ) {
+        $days = 1;
+    }
+    $since = sprintf( _n( '%s day', '%s days', $days ), $days );
+  } elseif ( $diff < MONTH_IN_SECONDS && $diff >= WEEK_IN_SECONDS ) {
+    $weeks = floor( $diff / WEEK_IN_SECONDS );
+    if ( $weeks <= 1 ) {
+        $weeks = 1;
+    }
+    $since = sprintf( _n( '%s week', '%s weeks', $weeks ), $weeks );
+  } elseif ( $diff < YEAR_IN_SECONDS && $diff >= MONTH_IN_SECONDS ) {
+    $months = floor( $diff / MONTH_IN_SECONDS );
+    if ( $months <= 1 ) {
+        $months = 1;
+    }
+    $since = sprintf( _n( '%s month', '%s months', $months ), $months );
+  } elseif ( $diff >= YEAR_IN_SECONDS ) {
+    $years = floor( $diff / YEAR_IN_SECONDS );
+    if ( $years <= 1 ) {
+        $years = 1;
+    }
+    $since = sprintf( _n( '%s year', '%s years', $years ), $years );
+  }
+  
+  return $since;
+}
+
+add_filter('human_time_diff', 'blognomic_theme_less_misleading_human_time_diff');
