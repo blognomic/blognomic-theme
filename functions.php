@@ -58,9 +58,9 @@ function blognomic_theme_less_misleading_human_time_diff($since, $diff, $from, $
   if(empty($to)) {
     $to = time();
   }
-  
+
   $diff = (int) abs( $to - $from );
-  
+
   if ( $diff < MINUTE_IN_SECONDS ) {
     $secs = $diff;
     if ( $secs <= 1 ) {
@@ -104,8 +104,8 @@ function blognomic_theme_less_misleading_human_time_diff($since, $diff, $from, $
     }
     $since = sprintf( _n( '%s year', '%s years', $years ), $years );
   }
-  
+
   return $since;
 }
 
-add_filter('human_time_diff', 'blognomic_theme_less_misleading_human_time_diff');
+add_filter('human_time_diff', 'blognomic_theme_less_misleading_human_time_diff', 10, 4);
