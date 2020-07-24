@@ -1,0 +1,59 @@
+{% set vote = comment.meta('vote') %}
+
+{% if vote == 'no-vote' %}
+  {% set vote = '' %}
+{% endif %}
+
+{% set comment_url = fn('get_edit_comment_link', comment.id) %}
+
+{% set images = {
+  for: 'for',
+  against: 'against',
+  deferential: 'imperial',
+  veto: 'veto'
+} %}
+
+{% set vote_icon = '<img alt="%s" src="/wp-content/uploads/icons/%s.svg" />'|format(vote, images[vote]) %}
+
+<li
+  id="comment-{{ comment.id }}"
+  class="comment not-evc"
+  data-author-id="{{ comment.author.id }}"
+  data-author-name="{{ comment.author.name|escape('html_attr') }}"
+  data-comment-time="{{ comment.time('U') }}"
+  data-author-status="{{ function('xprofile_get_field_data', 'Player status', comment.author.id)|lower }}"
+  data-vote="{{ vote }}"
+  data-is-player="{{ comment.author.meta('is_player') ? 'true' : 'false' }}"
+>
+  <section>
+    <span class="rule"></span>
+    <img class="avatar" src="{{ comment.author.avatar({size: 110}) }}" />
+
+    <div class="meta">
+      <span class="author-name"><a href="{{ comment.author.link }}">{{ comment.author.name }}</a> says:</span>
+      {% if vote != 'no-vote' and vote is not empty %}
+        <div class="vote">{{ vote_icon }}</div>
+      {% endif %}
+
+      {% if comment.meta('good_flavour') %}
+        <div class="flavour"><img alt="Good flavour!" src="/wp-content/uploads/icons/arrow.svg" /></div>
+      {% endif %}
+
+      {% if comment_url %}
+        <div class="edit-link"><a href="{{comment_url}}">Edit</a></div>
+      {% endif %}
+    </div>
+
+    <div class="content">
+      {{ comment.content }}
+    </div>
+  </section>
+
+  {% if comment.children %}
+    <ol class="children">
+      {% for child in comment.children %}
+        {{ include('comment.twig', {comment: child}) }}
+      {% endfor %}
+    </ol>
+  {% endif %}
+</li>

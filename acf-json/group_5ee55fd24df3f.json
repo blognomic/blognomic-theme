@@ -1,0 +1,90 @@
+{
+    "key": "group_5ee55fd24df3f",
+    "title": "Post fields",
+    "fields": [
+        {
+            "key": "field_5ee55ff135798",
+            "label": "Commentary or flavour text",
+            "name": "flavour",
+            "type": "wysiwyg",
+            "instructions": "Use this field to explain or add flavour to a proposal. See \"Commentary\" and \"Flavour Text\" under Appendix > Keywords in the ruleset.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        },
+        {
+            "key": "field_5ee560d335799",
+            "label": "Admin",
+            "name": "admin",
+            "type": "wysiwyg",
+            "instructions": "Admins, please post the vote count or reason for adminning the post here.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 1
+        },
+        {
+            "key": "field_5ee5610b3579a",
+            "label": "Admin user",
+            "name": "admin_user",
+            "type": "user",
+            "instructions": "User who adminned the post",
+            "required": 1,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5ee560d335799",
+                        "operator": "!=empty"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "role": [
+                "editor",
+                "administrator"
+            ],
+            "allow_null": 0,
+            "multiple": 0,
+            "return_format": "array"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "seamless",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1595194737
+}

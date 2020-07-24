@@ -198,6 +198,167 @@ $tablet-min: 768px;
   }
 }
 
+// Comments
+#comments {
+  $avatar-x: 56px;
+  $gap: 15px;
+
+  .toteboard {
+    display: flex;
+    justify-content: space-between;
+
+    > li {
+      display: block;
+      list-style: none;
+      flex: 1 1 0;
+      margin: 5px;
+      border-style: solid;
+      border-width: 1px;
+      padding: 10px;
+
+      &.for {
+        color: #229629;
+        border-color: #229629
+      }
+
+      &.deferential {
+        color: #666666;
+        border-color: #666666;
+      }
+
+      &.against {
+        color: #e91a1a;
+        border-color: #e91a1a;
+      }
+
+      &.veto {
+        color: black;
+        border-color: black;
+      }
+
+      ul {
+        font-size: 0.75rem;
+      }
+    }
+  }
+
+  .comment {
+    padding: 20px 0 0;
+    margin: 0 auto 20px;
+
+    section {
+      display: grid;
+      grid-template-columns: $avatar-x 1fr;
+      grid-gap: 0 $gap;
+      grid-template-areas:
+        "avatar  meta  "
+        " rule  content"
+      ;
+    }
+
+    .avatar {
+      grid-area: avatar;
+      position: static;
+      width: $avatar-x;
+      height: auto;
+      margin-right: 0;
+      border: 1px solid #666666;
+    }
+
+    .rule {
+      display: block;
+      width: auto;
+      height: 100%;
+      margin-left: $avatar-x / 2;
+      border-left: 1px solid #666666;
+    }
+
+    .meta {
+      grid-area: meta;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
+    .author-name {
+      line-height: 18px;
+      margin-right: 4px;
+    }
+
+    .vote, .flavour {
+      margin: 0px 4px;
+
+      img {
+        display: block;
+        width: auto;
+      }
+    }
+
+    &.not-evc {
+      .vote img {
+        opacity: 0.3;
+        filter: grayscale(70%);
+      }
+    }
+
+    .vote img {
+      height: $avatar-x - 20px;
+    }
+
+    .flavour img {
+      height: $avatar-x - 30px;
+    }
+
+    .edit-link {
+      margin-left: auto;
+      margin-right: 0;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .content {
+      grid-area: content;
+    }
+  }
+
+  .children {
+    margin-left: $avatar-x / 2;
+    padding-left: ($avatar-x / 2) + $gap;
+    border-left: 1px solid #666666;
+
+    &::before {
+      content: none !important;
+    }
+
+    .comment {
+      padding-top: 30px;
+    }
+  }
+}
+
+#commentform {
+  .acf-comment-fields {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .acf-field[data-name='good_flavour'] {
+    .acf-label {
+      display: none;
+    }
+  }
+
+  .acf-field[data-name='vote'] {
+    margin-right: 15px;
+
+    select {
+      width: auto;
+    }
+  }
+}
+
 // Smileys on comment form.
 .wpml_commentbox {
   display: inline-block;

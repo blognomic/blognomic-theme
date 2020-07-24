@@ -11,14 +11,12 @@
 
 function blognomic_theme_enqueue_styles() {
 
-  $parent_style = 'parent-style';
-
-  wp_enqueue_style( $parent_style,
-    get_template_directory_uri() . '/style.css');
-
   wp_enqueue_style( 'child-style',
     get_stylesheet_directory_uri() . '/style.css',
-    array($parent_style),
+    [
+      'hello-elementor',
+      'hello-elementor-theme-style'
+    ],
     wp_get_theme()->get('Version')
   );
 
@@ -109,3 +107,17 @@ function blognomic_theme_less_misleading_human_time_diff($since, $diff, $from, $
 }
 
 add_filter('human_time_diff', 'blognomic_theme_less_misleading_human_time_diff', 10, 4);
+
+function blognomic_theme_allow_empty_comment_with_vote($allowed) {
+  if(
+    $_POST['acf']['field_5f00efe62db71'] !== 'no-vote' ||
+    !empty($_POST['acf']['field_5f00f0a32db72'])
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+add_filter('allow_empty_comment', 'blognomic_theme_allow_empty_comment_with_vote');
+add_filter('duplicate_comment_id', '__return_false');

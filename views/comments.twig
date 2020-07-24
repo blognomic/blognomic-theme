@@ -1,0 +1,35 @@
+<section id="comments" class="comments-area">
+  {% if comments|length %}
+    <h3 class="title-comments">
+      {{ function('_nx',
+        "%s Response",
+        "%s Responses",
+        comments|length,
+        'comments title',
+        'blognomic-theme'
+      )|format(comments|length) }}
+    </h3>
+
+    {{ function('the_comments_navigation') }}
+
+    <ol class="comment-list">
+      {% for comment in comments %}
+        {{ include('comment.twig') }}
+      {% endfor %}
+    </ol>
+
+    {{ function('the_comments_navigation') }}
+  {% endif %}
+
+  {% if not (comments_open and comments|length and post_type_supports_comments) %}
+    <p class="no-comments">{{ __('Comments are closed.', 'blognomic-theme') }}</p>
+  {% endif %}
+
+  {{ function(
+    'comment_form',
+    {
+      'title_reply_before': '<h2 id="reply-title" class="comment-reply-title">',
+      'title_reply_after': '</h2>'
+    }
+  ) }}
+</section>
