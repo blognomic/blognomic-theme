@@ -1,6 +1,6 @@
 <section id="comments" class="comments-area">
   {% if comments|length %}
-    <h3 class="title-comments">
+    <h2 class="title-comments">
       {{ function('_nx',
         "%s Response",
         "%s Responses",
@@ -8,7 +8,7 @@
         'comments title',
         'blognomic-theme'
       )|format(comments|length) }}
-    </h3>
+    </h2>
 
     {{ function('the_comments_navigation') }}
 

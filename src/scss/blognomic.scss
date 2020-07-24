@@ -207,6 +207,11 @@ $tablet-min: 768px;
     display: flex;
     justify-content: space-between;
 
+
+    @media (max-width: $mobile-max) {
+      display: block;
+    }
+
     > li {
       display: block;
       list-style: none;
@@ -215,6 +220,20 @@ $tablet-min: 768px;
       border-style: solid;
       border-width: 1px;
       padding: 10px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      @media (max-width: $mobile-max) {
+        &:nth-child(n) {
+          margin: 5px auto;
+        }
+      }
 
       &.for {
         color: #229629;
